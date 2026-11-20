@@ -1,0 +1,20 @@
+{
+  "job": "901-WTR-CLEAN",
+  "customer": "Example Homeowner 2 (fictional test job)",
+  "loss_type": "WTR",
+  "billing_mode": "insurance",
+  "start_date": "2026-11-16",
+  "claim": {
+    "carrier": "Example Mutual",
+    "claim_number": "EX-0002",
+    "reported_date": "2026-11-16",
+    "acknowledged_date": "2026-11-17",
+    "mitigation_scope_sent": {"date": "2026-11-16", "method": "email", "to": "B. Adjuster"},
+    "mitigation_scope_response": {"date": "2026-11-18", "result": "approved"},
+    "status_notices": [],
+    "communications": [
+      {"date": "2026-11-16", "direction": "out", "contact": "B. Adjuster", "method": "email",
+       "subject": "Mitigation scope", "response_expected": true, "response_date": "2026-11-18"}
+    ]
+  }
+}

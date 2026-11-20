@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "name": "Washington insurance claim-handling rules (Clean Save compliance database)",
+    "jurisdiction": "WA",
+    "primary_source": "https://apps.leg.wa.gov/wac/default.aspx?cite=284-30",
+    "secondary_source": "https://uphelp.org/claim-guidance-publications/insurance-consumer-rights-in-washington-state/",
+    "secondary_source_updated": "2026-09",
+    "rule_change_effective": "2026-10-18",
+    "verification_status": "UNVERIFIED: the 2026-10-18 amendments come from a United Policyholders summary, not from the adopted WAC text. Confirm each citation against the WAC or OIC public notices before quoting it to a carrier, then set verified=true on that rule.",
+    "last_reviewed": "2026-11-20",
+    "day_types": {
+      "calendar": "Every day counts.",
+      "business": "Mon-Fri, excluding Washington state legal holidays. WAC uses both 'working days' and 'business days'; treated the same here."
+    },
+    "owner_types": {
+      "carrier": "A deadline the insurer owes. If missed, it is leverage for us and the homeowner, not a violation by Clean Save.",
+      "cleansave": "Something Clean Save must do (or avoid) to protect the job, the homeowner, or our license."
+    }
+  },
+  "rules": [
+    {
+      "id": "WA-ACK-10",
+      "owner": "carrier",
+      "title": "Insurer acknowledges the claim",
+      "citation": "WAC 284-30-360(1)(b)",
+      "effective": "pre-2026",
+      "verified": false,
+      "starts": "claim.reported_date",
+      "satisfied_by": "claim.acknowledged_date",
+      "deadline": {"days": 10, "type": "business"},
+      "catch": "No acknowledgment recorded within 10 business days of the claim being reported.",
+      "action": "Note it in the job log. Have the homeowner ask the adjuster for written acknowledgment and cite the rule if it stays silent."
+    },
+    {
+      "id": "WA-REPLY-10",
+      "owner": "carrier",
+      "title": "Insurer replies to communications that expect a response",
+      "citation": "WAC 284-30-360(3)",
+      "effective": "pre-2026",
+      "verified": false,
+      "starts": "claim.communications[].date (direction=out, response_expected=true)",
+      "satisfied_by": "claim.communications[].response_date",
+      "deadline": {"days": 10, "type": "business"},
+      "catch": "Any outbound message to the carrier that expected a reply has no reply logged after 10 business days.",
+      "action": "Send a dated follow-up referencing the original message and the 10-day reply rule."
+    },
+    {
+      "id": "WA-MIT-SCOPE-5",
+      "owner": "carrier",
+      "title": "Insurer approves our emergency mitigation scope or gives its own approved scope",
+      "citation": "WAC 284-30-330(20)",
+      "effective": "2026-10-18",
+      "verified": false,
+      "starts": "claim.mitigation_scope_sent.date",
+      "satisfied_by": "claim.mitigation_scope_response.date",
+      "deadline": {"days": 5, "type": "business"},
+      "catch": "Mitigation scope was sent and no approval or carrier scope has come back within 5 business days.",
+      "action": "Send templates/mitigation-scope-followup.md. Keep working to S500; document every day."
+    },
+    {
+      "id": "WA-MIT-REJECT-ITEMIZED",
+      "owner": "carrier",
+      "title": "A rejected mitigation scope must come with reasons and itemized disallowed amounts",
+      "citation": "WAC 284-30-330(21)",
+      "effective": "2026-10-18",
+      "verified": false,
+      "starts": "claim.mitigation_scope_response (result = rejected or partial)",
+      "satisfied_by": "claim.mitigation_scope_response.reason_given AND claim.mitigation_scope_response.itemized_disallowed",
+      "deadline": null,
+      "catch": "Carrier rejected or cut the mitigation scope without a written reason or without itemizing the disallowed amounts.",
+      "action": "Request the written reason and line-item list. That list becomes the base of the /supplement."
+    },
+    {
+      "id": "WA-INVESTIGATE-30",
+      "owner": "carrier",
+      "title": "Investigation complete within 30 days, or written status notices",
+      "citation": "WAC 284-30-370",
+      "effective": "2026-10-18 (notice content); 30-day standard pre-2026",
+      "verified": false,
+      "starts": "claim.reported_date",
+      "satisfied_by": "claim.decision_date OR claim.status_notices[]",
+      "deadline": {"days": 30, "type": "calendar"},
+      "catch": "Day 30 passed with no decision and no written status notice. New rule: the notice must summarize decisions, list outstanding items, and confirm a new adjuster reviewed the file.",
+      "action": "Homeowner requests a written status notice. Flag the file for escalation (supervisor, then OIC complaint)."
+    },
+    {
+      "id": "WA-DECIDE-30",
+      "owner": "carrier",
+      "title": "Accept or deny within 30 calendar days of notice of claim",
+      "citation": "WAC 284-30-380(1), (3)",
+      "effective": "2026-10-18",
+      "verified": false,
+      "starts": "claim.reported_date",
+      "satisfied_by": "claim.decision_date",
+      "deadline": {"days": 30, "type": "calendar"},
+      "applies_if": "claim.reported_date >= 2026-10-18",
+      "catch": "No accept or deny decision 30 calendar days after the claim was reported.",
+      "action": "Escalate. Pre-2026-10-18 claims use the old rule (15 working days after proof of loss), checked by WA-DECIDE-15-LEGACY."
+    },
+    {
+      "id": "WA-DECIDE-15-LEGACY",
+      "owner": "carrier",
+      "title": "Accept or deny within 15 working days of proof of loss (claims before the 2026 change)",
+      "citation": "WAC 284-30-380(1) (prior text)",
+      "effective": "pre-2026",
+      "verified": false,
+      "starts": "claim.proof_of_loss_date",
+      "satisfied_by": "claim.decision_date",
+      "deadline": {"days": 15, "type": "business"},
+      "applies_if": "claim.reported_date < 2026-10-18",
+      "catch": "No decision 15 business days after a signed proof of loss.",
+      "action": "Escalate."
+    },
+    {
+      "id": "WA-DENIAL-WRITTEN",
+      "owner": "carrier",
+      "title": "Denials in writing, citing the policy provision",
+      "citation": "WAC 284-30-380",
+      "effective": "pre-2026",
+      "verified": false,
+      "starts": "claim.decision in (denied, partial)",
+      "satisfied_by": "claim.denial_in_writing AND claim.policy_provision_cited",
+      "deadline": null,
+      "catch": "Full or partial denial without a written letter naming the policy provision.",
+      "action": "Homeowner requests the written denial with the policy provision. Do not start a supplement until you have it."
+    },
+    {
+      "id": "WA-FILE-15",
+      "owner": "carrier",
+      "title": "Claim file materials within 15 business days of request",
+      "citation": "WAC 284-30-340(2)",
+      "effective": "2026-10-18",
+      "verified": false,
+      "starts": "claim.claim_file_requested",
+      "satisfied_by": "claim.claim_file_received",
+      "deadline": {"days": 15, "type": "business"},
+      "catch": "Requested claim file (notes, estimates, photos, measurements, communications) not received within 15 business days, or withheld items not disclosed.",
+      "action": "Follow up citing the rule. Use the carrier's own estimate and notes to build the supplement."
+    },
+    {
+      "id": "WA-PRICING-SOURCE",
+      "owner": "carrier",
+      "title": "Pricing can't rest only on a database or estimating software; source data on request",
+      "citation": "WAC 284-30-330(4); 284-30-380(7)-(8)",
+      "effective": "2026-10-18",
+      "verified": false,
+      "starts": "claim.pricing_data_requested",
+      "satisfied_by": "claim.pricing_data_received",
+      "deadline": {"days": 15, "type": "business", "note": "No fixed deadline in the summary; 15 business days used as an internal follow-up trigger."},
+      "catch": "Carrier cut rates or quantities 'per price list' and has not provided the date, location and suppliers behind its numbers.",
+      "action": "Send templates/pricing-data-request.md. Attach field logs and meter readings to show the work was needed."
+    },
+    {
+      "id": "CS-SCOPE-WRITTEN-DAY1",
+      "owner": "cleansave",
+      "title": "Send the mitigation scope to the carrier in writing, early",
+      "citation": "Internal; starts the WAC 284-30-330(20) 5-business-day clock",
+      "verified": true,
+      "starts": "job.start_date (insurance jobs)",
+      "satisfied_by": "claim.mitigation_scope_sent.date",
+      "deadline": {"days": 1, "type": "business"},
+      "catch": "Insurance job started and no written mitigation scope has been sent to the carrier by the next business day.",
+      "action": "Email the scope (rooms, category/class, equipment plan, estimated days) to the adjuster and log the date. No written scope means no 5-day clock."
+    },
+    {
+      "id": "CS-COMMS-LOGGED",
+      "owner": "cleansave",
+      "title": "Every carrier contact logged with date, name and method",
+      "citation": "Internal; supports every carrier deadline and the supplement escalation ladder",
+      "verified": true,
+      "starts": "claim exists",
+      "satisfied_by": "claim.communications[] non-empty with date and contact",
+      "deadline": null,
+      "catch": "Insurance job with no logged carrier communications, or entries missing a date or contact name.",
+      "action": "Backfill the log today from email and phone history."
+    },
+    {
+      "id": "CS-NO-PERMANENT-BEFORE-INSPECTION",
+      "owner": "cleansave",
+      "title": "No permanent repairs before inspection without written OK",
+      "citation": "UP guidance: insurer may deny if permanent repairs precede inspection",
+      "verified": true,
+      "starts": "claim.permanent_work_started",
+      "satisfied_by": "claim.inspection_date <= permanent_work_started OR claim.permanent_repair_approval_written",
+      "deadline": null,
+      "catch": "Rebuild or permanent repair started before the carrier inspected, with no written approval on file.",
+      "action": "Stop permanent work. Get written approval from the adjuster first. Mitigation (emergency) work is fine."
+    },
+    {
+      "id": "CS-NO-UNLICENSED-ADJUSTING",
+      "owner": "cleansave",
+      "title": "We document and invoice our work. We don't negotiate the homeowner's claim.",
+      "citation": "RCW 48.17 (adjuster licensing). Confirm scope with counsel.",
+      "verified": false,
+      "starts": "always",
+      "satisfied_by": "n/a (conduct rule)",
+      "deadline": null,
+      "catch": "Any letter, call or web copy where Clean Save negotiates coverage or settlement for the homeowner, or claims to 'handle your claim'.",
+      "action": "Limit our communications to our own scope, pricing and documentation. Coverage disputes go to the homeowner, a licensed public adjuster, or an attorney. Letters that invoke a policyholder right are sent or signed by the homeowner."
+    }
+  ]
+}

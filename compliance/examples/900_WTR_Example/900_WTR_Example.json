@@ -1,0 +1,37 @@
+{
+  "job": "900-WTR-EXAMPLE",
+  "customer": "Example Homeowner (fictional test job)",
+  "loss_type": "WTR",
+  "billing_mode": "insurance",
+  "start_date": "2026-11-03",
+  "claim": {
+    "carrier": "Example Mutual",
+    "claim_number": "EX-0001",
+    "adjuster": "A. Adjuster",
+    "reported_date": "2026-11-02",
+    "acknowledged_date": null,
+    "proof_of_loss_date": null,
+    "mitigation_scope_sent": {"date": "2026-11-05", "method": "email", "to": "A. Adjuster"},
+    "mitigation_scope_response": {"date": null, "result": null, "reason_given": null, "itemized_disallowed": null},
+    "decision_date": null,
+    "decision": null,
+    "denial_in_writing": null,
+    "policy_provision_cited": null,
+    "status_notices": [],
+    "claim_file_requested": null,
+    "claim_file_received": null,
+    "withheld_items_disclosed": null,
+    "carrier_cut_by_price_list": true,
+    "pricing_data_requested": null,
+    "pricing_data_received": null,
+    "carrier_inspection_date": null,
+    "permanent_work_started": null,
+    "permanent_repair_approval_written": null,
+    "communications": [
+      {"date": "2026-11-05", "direction": "out", "contact": "A. Adjuster", "method": "email",
+       "subject": "Mitigation scope", "response_expected": true, "response_date": null},
+      {"date": "2026-11-06", "direction": "in", "contact": null, "method": "phone",
+       "subject": "Adjuster voicemail", "response_expected": false}
+    ]
+  }
+}
