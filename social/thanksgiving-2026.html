@@ -1,26 +1,28 @@
 <!doctype html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#111111;--pink:#E8186D;--paper:#ffffff;--soft:#F4F6F8;--muted:#4a5058;--line:#dde1e6}
+:root{--ink:#0d0d0d;--pink:#FF4988;--yellow:#FFCB16;--muted:#8a8a8a}
 *{margin:0;box-sizing:border-box}
-body{width:1080px;height:1080px;background:var(--paper);font-family:Inter,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);overflow:hidden;display:flex;flex-direction:column}
-.hero{background:var(--ink);color:#fff;padding:120px 100px 110px;flex:1;display:flex;flex-direction:column;justify-content:flex-end}
-.eyebrow{color:var(--pink);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:28px;margin-bottom:28px}
-h1{font-weight:800;font-size:124px;line-height:1.02;letter-spacing:-.03em}
-.lede{font-size:36px;line-height:1.4;color:#d6d9de;margin-top:40px;max-width:820px;font-weight:500}
-.foot{padding:56px 100px 64px;border-top:12px solid var(--pink);display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:800;font-size:46px;letter-spacing:-.02em}
-.svc{font-weight:700;font-size:22px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
-.phone{font-weight:800;font-size:34px;text-align:right}
-.phone span{display:block;font-weight:700;font-size:20px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+body{width:1080px;height:1080px;background:var(--ink);font-family:Inter,sans-serif;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.top{position:absolute;top:0;left:0;right:0;height:14px;background:var(--pink)}
+.top::after{content:"";position:absolute;right:0;top:0;width:33%;height:100%;background:var(--yellow)}
+.logo{width:470px;margin-top:80px}
+.eyebrow{color:var(--yellow);font-weight:800;letter-spacing:.2em;text-transform:uppercase;font-size:24px;margin-top:34px}
+h1{font-weight:900;font-size:92px;line-height:1;letter-spacing:-.03em;color:var(--pink);margin-top:44px}
+.rule{width:90px;height:6px;background:var(--yellow);border-radius:3px;margin:34px 0 30px}
+.lede{font-size:31px;line-height:1.4;color:#b9b9b9;max-width:800px;font-weight:500;text-wrap:balance}
+.foot{position:absolute;bottom:0;left:0;right:0;padding:0 70px;height:96px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid #262626}
+.svc{font-weight:800;font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink)}
+.svc b{color:var(--yellow);font-weight:800;margin:0 10px}
+.phone{font-weight:800;font-size:32px;color:var(--yellow)}
 </style></head><body>
-<section class="hero">
- <p class="eyebrow">From the Clean Save team</p>
- <h1>Happy Thanksgiving.</h1>
- <p class="lede">Thank you to the homeowners, adjusters and partners who trusted us with their properties this year.</p>
-</section>
+<div class="top"></div>
+<img class="logo" src="clean-save-logo.png" alt="Clean Save Restoration">
+<h1>Happy Thanksgiving</h1>
+<div class="rule"></div>
+<p class="lede">Thank you to the homeowners, adjusters and partners who trusted us with their properties this year.</p>
 <footer class="foot">
- <div><div class="brand">Clean Save Restoration</div><div class="svc">Water · Fire · Mold</div></div>
- <div class="phone"><span>Call</span>(253) 553-6435</div>
+ <div class="svc">Water<b>·</b>Fire<b>·</b>Mold</div>
+ <div class="phone">(253) 553-6435</div>
 </footer>
 </body></html>
